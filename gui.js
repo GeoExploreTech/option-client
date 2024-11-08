@@ -1,3 +1,18 @@
+// Function to get the content of the target element
+function getCurrentSymbol() {
+  // Select the element using the class name
+  const symbolElement = document.querySelector(
+    ".current-symbol.current-symbol_cropped"
+  );
+
+  if (symbolElement) {
+    const symbolContent = symbolElement.textContent.trim(); // Get and trim the text content
+    return symbolContent; // Return the content if needed elsewhere in the script
+  } else {
+    return "NO SYMBOL SELECTED";
+  }
+}
+
 function loadGUI() {
   // Create the main dashboard container
   const dashboard = document.createElement("div");
@@ -6,11 +21,10 @@ function loadGUI() {
   // Add HTML content for the dropdown, buttons, and table
   dashboard.innerHTML = `
     <div class="dashboard-header">
-        <select id="asset-select">
-            <option value="asset1">Asset 1</option>
-            <option value="asset2">Asset 2</option>
-            <option value="asset3">Asset 3</option>
-        </select>
+    <h3> Current Asset </h3> 
+    </div>
+   <div class="asset-select">
+      ${getCurrentSymbol()} 
     </div>
     <div class="dashboard-buttons">
         <button id="start-server">Start Server</button>
