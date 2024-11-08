@@ -1,10 +1,15 @@
 function runClient() {
   runBrainJS();
   // Load HTML, CSS, and initialize the Vue app
-  loadHTML("https://example.com/path/to/index.html", () => {
-    loadCSS("https://example.com/path/to/style.css");
-    initVueApp();
-  });
+  loadHTML(
+    "https://raw.githubusercontent.com/GeoExploreTech/option-client/refs/heads/master/html/index.html",
+    () => {
+      loadCSS(
+        "https://raw.githubusercontent.com/GeoExploreTech/option-client/refs/heads/master/css/main.css"
+      );
+      initVueApp();
+    }
+  );
   // Create the WebSocket observable
   const candleDataObservable = createWebSocketObservable(wsUrl);
 

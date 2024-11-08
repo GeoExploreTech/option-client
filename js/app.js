@@ -2,7 +2,7 @@
 async function initVueApp() {
   // Load each component
   const ComponentA = await loadComponent(
-    "https://example.com/path/to/ComponentA.js"
+    "https://raw.githubusercontent.com/GeoExploreTech/option-client/refs/heads/master/js/components/ButtonControl.js"
   );
 
   const App = {
