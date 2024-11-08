@@ -1,6 +1,10 @@
 function runClient() {
   runBrainJS();
-  loadGUI();
+  // Load HTML, CSS, and initialize the Vue app
+  loadHTML("https://example.com/path/to/index.html", () => {
+    loadCSS("https://example.com/path/to/style.css");
+    initVueApp();
+  });
   // Create the WebSocket observable
   const candleDataObservable = createWebSocketObservable(wsUrl);
 

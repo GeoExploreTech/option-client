@@ -1,0 +1,59 @@
+#draggable-container {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  width: 200px;
+  padding: 10px;
+  background: #f0f0f0;
+  border: 2px solid #333;
+  border-radius: 8px;
+  font-family: Arial, sans-serif;
+  z-index: 9999;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+#trading-dashboard .dashboard-header {
+  margin-bottom: 10px;
+}
+#trading-dashboard select {
+  width: 100%;
+  padding: 5px;
+  margin-bottom: 5px;
+}
+#trading-dashboard .dashboard-buttons button {
+  display: block;
+  width: 100%;
+  padding: 5px;
+  margin-bottom: 5px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+}
+#trading-dashboard .dashboard-buttons button:hover {
+  background-color: #45a049;
+}
+#trading-dashboard .dashboard-table {
+  margin-top: 10px;
+}
+#trading-dashboard table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9em;
+}
+#trading-dashboard table,
+#trading-dashboard th,
+#trading-dashboard td {
+  border: 1px solid #ddd;
+  text-align: center;
+  padding: 8px;
+}
+#trading-dashboard th {
+  background-color: #4caf50;
+  color: #4caf50;
+}
+.asset-select {
+  color: white;
+}
