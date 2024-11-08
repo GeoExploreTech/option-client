@@ -1,16 +1,36 @@
 // Function to get the content of the target element
 function getCurrentSymbol() {
-  // Select the element using the class name
   const symbolElement = document.querySelector(
     ".current-symbol.current-symbol_cropped"
   );
+  return symbolElement
+    ? symbolElement.textContent.trim()
+    : "NO SYMBOL SELECTED";
+}
+// Function to observe changes in the current symbol and update the dashboard
+function observeSymbolChanges() {
+  const symbolElement = document.querySelector(
+    ".current-symbol.current-symbol_cropped"
+  );
+  const assetSelect = document.getElementById("asset-select");
 
-  if (symbolElement) {
-    const symbolContent = symbolElement.textContent.trim(); // Get and trim the text content
-    return symbolContent; // Return the content if needed elsewhere in the script
-  } else {
-    return "NO SYMBOL SELECTED";
+  if (!symbolElement) {
+    console.warn("Symbol element not found.");
+    return;
   }
+
+  const observer = new MutationObserver(() => {
+    const newSymbol = getCurrentSymbol();
+    assetSelect.textContent = newSymbol;
+    console.log("Symbol updated to:", newSymbol);
+  });
+
+  // Observe text content changes in the symbol element
+  observer.observe(symbolElement, {
+    characterData: true,
+    subtree: true,
+    childList: true,
+  });
 }
 
 function loadGUI() {
@@ -30,20 +50,6 @@ function loadGUI() {
         <button id="start-server">Start Server</button>
         <button id="download-data">Download Data</button>
         <button id="start-trading">Start Trading</button>
-    </div>
-    <div class="dashboard-table">
-        <table id="data-table">
-            <thead>
-                <tr>
-                    <th>Asset</th>
-                    <th>Status</th>
-                    <th>Value</th>
-                </tr>
-            </thead>
-            <tbody id="table-body">
-                <tr><td>-</td><td>-</td><td>-</td></tr>
-            </tbody>
-        </table>
     </div>
 `;
 
@@ -154,4 +160,7 @@ function loadGUI() {
     .addEventListener("click", function () {
       alert("Starting trading...");
     });
+
+  // Add MutationObserver to watch for changes in the symbol element
+  observeSymbolChanges();
 }
