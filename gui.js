@@ -1,12 +1,21 @@
 let currentAsset = "NO ASSET";
+
 // Function to get the content of the target element
 function getCurrentSymbol() {
+  // Select the element using the class name
   const symbolElement = document.querySelector(
     ".current-symbol.current-symbol_cropped"
   );
-  return symbolElement
-    ? symbolElement.textContent.trim()
-    : "NO SYMBOL SELECTED";
+
+  if (symbolElement) {
+    const symbolContent = symbolElement.textContent.trim(); // Get and trim the text content
+    console.log("Symbol Content:", symbolContent);
+    return symbolContent; // Return the content if needed elsewhere in the script
+  } else {
+    console.warn(
+      "Element with class 'current-symbol current-symbol_cropped' not found."
+    );
+  }
 }
 
 function loadGUI() {
