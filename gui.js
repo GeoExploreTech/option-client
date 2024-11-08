@@ -1,3 +1,4 @@
+let currentAsset = "NO ASSET";
 // Function to get the content of the target element
 function getCurrentSymbol() {
   const symbolElement = document.querySelector(
@@ -6,31 +7,6 @@ function getCurrentSymbol() {
   return symbolElement
     ? symbolElement.textContent.trim()
     : "NO SYMBOL SELECTED";
-}
-// Function to observe changes in the current symbol and update the dashboard
-function observeSymbolChanges() {
-  const symbolElement = document.querySelector(
-    ".current-symbol.current-symbol_cropped"
-  );
-  const assetSelect = document.getElementById("asset-select");
-
-  if (!symbolElement) {
-    console.warn("Symbol element not found.");
-    return;
-  }
-
-  const observer = new MutationObserver(() => {
-    const newSymbol = getCurrentSymbol();
-    assetSelect.textContent = newSymbol;
-    console.log("Symbol updated to:", newSymbol);
-  });
-
-  // Observe text content changes in the symbol element
-  observer.observe(symbolElement, {
-    characterData: true,
-    subtree: true,
-    childList: true,
-  });
 }
 
 function loadGUI() {
@@ -44,10 +20,10 @@ function loadGUI() {
     <h3> Current Asset </h3> 
     </div>
    <div class="asset-select">
-      ${getCurrentSymbol()} 
+      ${currentAsset} 
     </div>
     <div class="dashboard-buttons">
-        <button id="start-server">Start Server</button>
+        <button id="get-asset">Get Asset</button>
         <button id="download-data">Download Data</button>
         <button id="start-trading">Start Trading</button>
     </div>
@@ -110,7 +86,10 @@ function loadGUI() {
     }
     #trading-dashboard th {
         background-color: #4CAF50;
-        color: white;
+        color: #4CAF50;
+    }
+    .asset-select{
+      color: white;
     }
 `;
   document.head.appendChild(style);
@@ -143,11 +122,9 @@ function loadGUI() {
   };
 
   // Button functionality
-  document
-    .getElementById("start-server")
-    .addEventListener("click", function () {
-      alert("Starting the server...");
-    });
+  document.getElementById("get-asset").addEventListener("click", function () {
+    currentAsset = getCurrentSymbol();
+  });
 
   document
     .getElementById("download-data")
@@ -160,7 +137,4 @@ function loadGUI() {
     .addEventListener("click", function () {
       alert("Starting trading...");
     });
-
-  // Add MutationObserver to watch for changes in the symbol element
-  observeSymbolChanges();
 }
