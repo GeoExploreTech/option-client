@@ -4,7 +4,7 @@ function initVueApp() {
   // Load external HTML content and initialize app
   GM_xmlhttpRequest({
     method: "GET",
-    url: "https://example.com/path/to/your/template.html", // Replace with your actual HTML file URL
+    url: "https://raw.githubusercontent.com/GeoExploreTech/option-client/refs/heads/test-branch/html/index.html", // Replace with your actual HTML file URL
     onload: function (response) {
       // Inject the fetched HTML content into the page
       const appDiv = document.createElement("div");
