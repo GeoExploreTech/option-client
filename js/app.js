@@ -7,12 +7,8 @@ function initVueApp() {
     url: "https://raw.githubusercontent.com/GeoExploreTech/option-client/refs/heads/test-branch/html/index.html", // Replace with your actual HTML file URL
     onload: function (response) {
       // Inject the fetched HTML content into the page
-      // const appDiv = document.createElement("div");
-      // Inject the main div container
-      const appDiv = GM_addElement(document.body, "div", {
-        id: "option-bot-app",
-      });
-      // appDiv.id = "option-bot-app";
+      const appDiv = document.createElement("div");
+      appDiv.id = "option-bot-app";
       appDiv.innerHTML = response.responseText;
       document.body.appendChild(appDiv);
 
