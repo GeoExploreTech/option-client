@@ -1,24 +1,50 @@
 // Initialize the Vue app after HTML and CSS are loaded
-async function initVueApp() {
-  // Load each component
-  const ComponentA = await loadComponent(
-    "https://raw.githubusercontent.com/GeoExploreTech/option-client/refs/heads/master/js/components/ButtonControl.js"
-  );
+function initVueApp() {
+  inJectCSS("OPTION_BOT_CSS");
+  // Load external HTML content and initialize app
+  GM_xmlhttpRequest({
+    method: "GET",
+    url: "https://example.com/path/to/your/template.html", // Replace with your actual HTML file URL
+    onload: function (response) {
+      // Inject the fetched HTML content into the page
+      const appDiv = document.createElement("div");
+      appDiv.id = "option-bot-app";
+      appDiv.innerHTML = response.responseText;
+      document.body.appendChild(appDiv);
 
-  const App = {
-    template: `
-        <div>
-          <component-a></component-a>
-        </div>
-      `,
-    components: {
-      "component-a": ComponentA,
+      // Initialize Vue after HTML is loaded
+      new Vue({
+        el: "#option-bot-app",
+        methods: {
+          buttonClick(name) {
+            alert(`${name} clicked`);
+          },
+        },
+      });
+
+      // Draggable functionality
+      let isDragging = false;
+      let offsetX, offsetY;
+
+      const header = document.getElementById("option-bot-header");
+      const app = document.getElementById("option-bot-app");
+
+      header.addEventListener("mousedown", function (e) {
+        isDragging = true;
+        offsetX = e.clientX - app.getBoundingClientRect().left;
+        offsetY = e.clientY - app.getBoundingClientRect().top;
+      });
+
+      document.addEventListener("mousemove", function (e) {
+        if (isDragging) {
+          app.style.left = `${e.clientX - offsetX}px`;
+          app.style.top = `${e.clientY - offsetY}px`;
+        }
+      });
+
+      document.addEventListener("mouseup", function () {
+        isDragging = false;
+      });
     },
-  };
-
-  Vue.createApp(App).mount("#app"); // Mounting to the #app div in index.html
-
-  // Make the container draggable
-  const draggableContainer = document.getElementById("trading-dashboardr");
-  makeDraggable(draggableContainer);
+  });
 }
