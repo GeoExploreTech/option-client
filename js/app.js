@@ -34,6 +34,9 @@ function initVueApp() {
             }
           },
         },
+        mounted() {
+          getCurrentAssest();
+        },
       });
 
       // Draggable functionality
