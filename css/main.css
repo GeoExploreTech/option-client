@@ -31,10 +31,9 @@
 .option-text {
   padding: 8px;
   border: none;
-  color: rgb(45, 165, 2);
+  color: rgb(43, 150, 5);
   background-color: white;
   border-radius: 4px;
-  cursor: pointer;
   text-align: center;
 }
 
