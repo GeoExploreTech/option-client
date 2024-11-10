@@ -17,10 +17,32 @@ function initVueApp() {
         el: "#option-bot-app",
         data: {
           currentSym: "Current Asset",
+          subscription: "",
         },
         methods: {
           buttonClick(name) {
             alert(`${name} clicked`);
+          },
+          startStreaming() {
+            const candleDataObservable = createWebSocketObservable(
+              formatSymbol(this.currentSym),
+              60,
+              1
+            );
+            this.subscription = candleDataObservable.subscribe({
+              next: (data) => {
+                console.log("Received candle data:", data);
+              },
+              error: (error) => {
+                console.error("WebSocket error:", error);
+              },
+              complete: () => {
+                console.log("WebSocket stream completed.");
+              },
+            });
+          },
+          stopStreaming() {
+            this.subscription.unsubscribe();
           },
           getCurrentAssest() {
             // Get the text content of the target element and assign it to currentSym
