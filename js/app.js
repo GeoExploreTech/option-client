@@ -35,7 +35,9 @@ function initVueApp() {
           },
         },
         mounted() {
-          this.getCurrentAssest();
+          setInterval(() => {
+            this.getCurrentAssest();
+          }, 1000);
         },
       });
 
