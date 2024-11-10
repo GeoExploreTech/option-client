@@ -23,9 +23,15 @@ function initVueApp() {
           buttonClick(name) {
             alert(`${name} clicked`);
           },
+          formatSymbol(input) {
+            return input
+              .replace("/", "") // Remove the slash
+              .replace(" ", "_") // Replace space with underscore
+              .replace("OTC", "otc"); // Convert "OTC" to lowercase "otc"
+          },
           startStreaming() {
             const candleDataObservable = createWebSocketObservable(
-              formatSymbol(this.currentSym),
+              this.formatSymbol(this.currentSym),
               60,
               1
             );

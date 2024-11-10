@@ -6,10 +6,3 @@ function runBrainJS() {
   }
   console.log("Brain.js loaded successfully");
 }
-
-function formatSymbol(input) {
-  return input
-    .replace("/", "") // Remove the slash
-    .replace(" ", "_") // Replace space with underscore
-    .replace("OTC", "otc"); // Convert "OTC" to lowercase "otc"
-}
