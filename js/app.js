@@ -23,9 +23,15 @@ function initVueApp() {
             alert(`${name} clicked`);
           },
           getCurrentAssest() {
-            currentSym.value = document.querySelector(
+            // Get the text content of the target element and assign it to currentSym
+            const element = document.querySelector(
               ".current-symbol.current-symbol_cropped"
             );
+            if (element) {
+              this.currentSym = element.textContent; // Assign text content directly to currentSym
+            } else {
+              console.warn("Element not found");
+            }
           },
         },
       });
