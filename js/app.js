@@ -15,9 +15,17 @@ function initVueApp() {
       // Initialize Vue after HTML is loaded
       new Vue({
         el: "#option-bot-app",
+        data: {
+          currentSym: "Current Asset",
+        },
         methods: {
           buttonClick(name) {
             alert(`${name} clicked`);
+          },
+          getCurrentAssest() {
+            currentSym.value = document.querySelector(
+              ".current-symbol.current-symbol_cropped"
+            );
           },
         },
       });
