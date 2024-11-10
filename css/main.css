@@ -28,11 +28,21 @@
   gap: 8px;
 }
 
+.option-text {
+  padding: 8px;
+  border: none;
+  color: rgb(45, 165, 2);
+  background-color: white;
+  border-radius: 4px;
+  cursor: pointer;
+  text-align: center;
+}
+
 .option-button {
   padding: 8px;
   border: none;
   color: white;
-  background-color: #4caf50;
+  background-color: #a38304;
   border-radius: 4px;
   cursor: pointer;
   text-align: center;
