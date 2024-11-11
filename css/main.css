@@ -35,6 +35,7 @@
   background-color: white;
   border-radius: 4px;
   text-align: center;
+  cursor: default;
 }
 
 .option-button {
