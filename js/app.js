@@ -84,7 +84,6 @@ function initVueApp() {
                       lowerTail, // Bottom wick (lower tail)
                     };
                   });
-                  console.log("HERE COMES:", this.candlesData);
                 } else {
                   console.error(
                     `Request failed with status ${response.status}`
@@ -96,6 +95,63 @@ function initVueApp() {
               },
             });
           },
+          normalizeData(data) {
+            const normalized = data.map((d) => ({
+              open: d.open / 10,
+              high: d.high / 10,
+              low: d.low / 10,
+              close: d.close / 10,
+              body: d.body / 10,
+              upperTail: d.upperTail / 10,
+              lowerTail: d.lowerTail / 10,
+            }));
+            return normalized;
+          },
+          // Prepare training data
+          prepareTrainingData(normalizedData) {
+            return normalizedData
+              .map((d, i) => {
+                const nextCandle = normalizedData[i + 1];
+                if (!nextCandle) return null;
+
+                // Direction is up (1) if the next close is higher than the current close, otherwise down (0)
+                const direction = nextCandle.close > d.close ? 1 : 0;
+                return {
+                  input: [
+                    d.open,
+                    d.high,
+                    d.low,
+                    d.close,
+                    d.body,
+                    d.upperTail,
+                    d.lowerTail,
+                  ],
+                  output: [direction],
+                };
+              })
+              .filter(Boolean); // Remove any null values
+          },
+
+          trainNetWork() {
+            const net = new brain.recurrent.LSTMTimeStep({
+              inputSize: 7, // OHLC + body + upperTail + lowerTail
+              hiddenLayers: [10, 10],
+              outputSize: 1, // Predict direction (up/down)
+            });
+            const norData = this.normalizeData(this.candlesData);
+            const trainingData = this.prepareTrainingData(norData);
+            // Train the network
+            net.train(trainingData, {
+              iterations: 2000,
+              learningRate: 0.01,
+              errorThresh: 0.005,
+              log: (error) => console.log(error),
+              logPeriod: 500,
+            });
+
+            console.log("Prediction = ", net.run(trainingData[18]));
+          },
+
           startStreaming() {
             const symAsset = this.formatSymbol(this.currentSym);
 
