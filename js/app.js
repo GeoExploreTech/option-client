@@ -68,8 +68,8 @@ function initVueApp() {
                 if (response.status === 200) {
                   // Parse the JSON response
                   const data = JSON.parse(response.responseText);
-                  console.log("API Data:", data); // Log the data to console
-                  alert(`Title: ${data.title}`); // Example action with data
+                  this.candlesData = data;
+                  console.log("HERE COMES:", this.candlesData);
                 } else {
                   console.error(
                     `Request failed with status ${response.status}`
@@ -83,7 +83,7 @@ function initVueApp() {
           },
           startStreaming() {
             const symAsset = this.formatSymbol(this.currentSym);
-            console.log("Here Now", symAsset);
+
             const urlWs = `wss://ws.geoviso.com/ws/candles/${symAsset}/60/1`;
             console.log(brain);
 
