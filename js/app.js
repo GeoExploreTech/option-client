@@ -25,6 +25,21 @@ function initVueApp() {
           buttonClick(name) {
             alert(`${name} clicked`);
           },
+          // Emit messages to the observer
+          messageListener(event) {
+            try {
+              const data = this.getCandleDataPerSecond(event.data);
+              console.log(data);
+
+              return data;
+            } catch (error) {
+              console.log(error);
+            }
+          },
+          getCandleDataPerSecond(res) {
+            const data = JSON.parse(res); // Parse incoming data
+            return data;
+          },
           formatSymbol(input) {
             return input
               .replace("/", "") // Remove the slash
@@ -38,27 +53,19 @@ function initVueApp() {
             // Create WebSocket connection
             const socket = new WebSocket(urlWs);
 
+            // Add WebSocket event listeners
+            socket.addEventListener("open", () => {
+              console.log("WebSocket connection opened.");
+            });
+            socket.addEventListener("message", this.messageListener);
+            socket.addEventListener("close", () => {
+              console.log("WebSocket connection Closed.");
+            });
+            socket.addEventListener("error", (error) => {
+              console.log(error);
+            });
+
             console.log(socket);
-
-            // alert(`Start Stream clicked`);
-            // const candleDataObservable = createWebSocketObservable(
-            //   symAsset,
-            //   60,
-            //   1
-            // );
-            // console.log(candleDataObservable());
-
-            // this.subscription = candleDataObservable.subscribe({
-            //   next: (data) => {
-            //     console.log("Received candle data:", data);
-            //   },
-            //   error: (error) => {
-            //     console.error("WebSocket error:", error);
-            //   },
-            //   complete: () => {
-            //     console.log("WebSocket stream completed.");
-            //   },
-            // });
           },
           stopStreaming() {
             this.subscription.unsubscribe();
