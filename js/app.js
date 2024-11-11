@@ -32,7 +32,7 @@ function initVueApp() {
           startStreaming() {
             console.log("Here Now", this.formatSymbol(this.currentSym));
 
-            alert(`Start Stream clicked`);
+            // alert(`Start Stream clicked`);
             // const candleDataObservable = createWebSocketObservable(
             //   this.formatSymbol(this.currentSym),
             //   60,
