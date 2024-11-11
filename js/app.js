@@ -68,7 +68,22 @@ function initVueApp() {
                 if (response.status === 200) {
                   // Parse the JSON response
                   const data = JSON.parse(response.responseText);
-                  this.candlesData = data;
+                  this.candlesData = data.map((res) => {
+                    const { open, high, low, close } = res;
+                    const body = Math.abs(close - open);
+                    const upperTail = high - Math.max(open, close);
+                    const lowerTail = Math.min(open, close) - low;
+
+                    return {
+                      open,
+                      high,
+                      low,
+                      close,
+                      body, // Head (body)
+                      upperTail, // Top wick (upper tail)
+                      lowerTail, // Bottom wick (lower tail)
+                    };
+                  });
                   console.log("HERE COMES:", this.candlesData);
                 } else {
                   console.error(
