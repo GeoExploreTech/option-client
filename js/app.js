@@ -138,6 +138,9 @@ function initVueApp() {
               hiddenLayers: [10, 10],
               outputSize: 1, // Predict direction (up/down)
             });
+
+            console.log("DATA GOT =", this.candlesData);
+
             const norData = this.normalizeData(this.candlesData);
             const trainingData = this.prepareTrainingData(norData);
 
