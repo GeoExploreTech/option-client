@@ -21,6 +21,7 @@ function initVueApp() {
           currentSym: "Current Asset",
           subscription: "",
           socketHandle: "",
+          isStreaming: false,
         },
         methods: {
           buttonClick(name) {
@@ -68,6 +69,7 @@ function initVueApp() {
             this.socketHandle.addEventListener("message", this.messageListener);
             this.socketHandle.addEventListener("close", this.closeListener);
             this.socketHandle.addEventListener("error", this.errorListener);
+            this.isStreaming = true;
           },
           stopStreaming() {
             this.socketHandle.removeEventListener("open", this.openListener);
@@ -80,6 +82,7 @@ function initVueApp() {
             if (this.socketHandle.readyState === WebSocket.OPEN) {
               this.socketHandle.close();
             }
+            this.isStreaming = false;
           },
           getCurrentAssest() {
             // Get the text content of the target element and assign it to currentSym

@@ -7,6 +7,10 @@
   <button class="option-button" @click="getCurrentAssest">
     Get Candle Data
   </button>
-  <button class="option-button" @click="startStreaming">Start Streaming</button>
-  <button class="option-button" @click="stopStreaming">Stop Streaming</button>
+  <button class="option-button" @click="startStreaming" :disabled="isStreaming">
+    Start Streaming
+  </button>
+  <button class="option-button" @click="stopStreaming" :disabled="!isStreaming">
+    Stop Streaming
+  </button>
 </div>
