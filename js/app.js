@@ -61,6 +61,8 @@ function initVueApp() {
             const symAsset = this.formatSymbol(this.currentSym);
             console.log("Here Now", symAsset);
             const urlWs = `wss://ws.geoviso.com/ws/candles/${symAsset}/60/1`;
+            console.log(brain);
+
             // Create WebSocket connection
             this.socketHandle = new WebSocket(urlWs);
 
