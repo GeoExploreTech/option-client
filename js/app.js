@@ -140,6 +140,10 @@ function initVueApp() {
             });
             const norData = this.normalizeData(this.candlesData);
             const trainingData = this.prepareTrainingData(norData);
+
+            console.log("norData", norData);
+            console.log("trainingData", trainingData);
+
             // Train the network
             net.train(trainingData, {
               iterations: 2000,
