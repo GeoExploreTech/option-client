@@ -68,6 +68,8 @@ function initVueApp() {
                 if (response.status === 200) {
                   // Parse the JSON response
                   const data = JSON.parse(response.responseText);
+                  console.log("HERE  = ", data);
+
                   this.candlesData = data.map((res) => {
                     const { open, high, low, close } = res;
                     const body = Math.abs(close - open);
