@@ -1,5 +1,7 @@
 // Initialize the Vue app after HTML and CSS are loaded
 function initVueApp() {
+  const { fromEvent, Observable } = rxjs;
+  const { map } = rxjs.operators;
   inJectCSS("OPTION_BOT_CSS");
   // Load external HTML content and initialize app
   GM_xmlhttpRequest({
@@ -32,26 +34,31 @@ function initVueApp() {
           startStreaming() {
             const symAsset = this.formatSymbol(this.currentSym);
             console.log("Here Now", symAsset);
+            const urlWs = `wss://ws.geoviso.com/ws/candles/${assetSym}/60/1`;
+            // Create WebSocket connection
+            const socket = new WebSocket(urlWs);
+
+            console.log(socket);
 
             // alert(`Start Stream clicked`);
-            const candleDataObservable = createWebSocketObservable(
-              symAsset,
-              60,
-              1
-            );
+            // const candleDataObservable = createWebSocketObservable(
+            //   symAsset,
+            //   60,
+            //   1
+            // );
             // console.log(candleDataObservable());
 
-            this.subscription = candleDataObservable.subscribe({
-              next: (data) => {
-                console.log("Received candle data:", data);
-              },
-              error: (error) => {
-                console.error("WebSocket error:", error);
-              },
-              complete: () => {
-                console.log("WebSocket stream completed.");
-              },
-            });
+            // this.subscription = candleDataObservable.subscribe({
+            //   next: (data) => {
+            //     console.log("Received candle data:", data);
+            //   },
+            //   error: (error) => {
+            //     console.error("WebSocket error:", error);
+            //   },
+            //   complete: () => {
+            //     console.log("WebSocket stream completed.");
+            //   },
+            // });
           },
           stopStreaming() {
             this.subscription.unsubscribe();
