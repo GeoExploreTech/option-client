@@ -30,23 +30,23 @@ function initVueApp() {
               .replace("OTC", "otc"); // Convert "OTC" to lowercase "otc"
           },
           startStreaming() {
-            alert(`Start Stream clicked`);
-            const candleDataObservable = createWebSocketObservable(
-              this.formatSymbol(this.currentSym),
-              60,
-              1
-            );
-            this.subscription = candleDataObservable.subscribe({
-              next: (data) => {
-                console.log("Received candle data:", data);
-              },
-              error: (error) => {
-                console.error("WebSocket error:", error);
-              },
-              complete: () => {
-                console.log("WebSocket stream completed.");
-              },
-            });
+            alert(`Start Stream clicked`, this.formatSymbol(this.currentSym));
+            // const candleDataObservable = createWebSocketObservable(
+            //   this.formatSymbol(this.currentSym),
+            //   60,
+            //   1
+            // );
+            // this.subscription = candleDataObservable.subscribe({
+            //   next: (data) => {
+            //     console.log("Received candle data:", data);
+            //   },
+            //   error: (error) => {
+            //     console.error("WebSocket error:", error);
+            //   },
+            //   complete: () => {
+            //     console.log("WebSocket stream completed.");
+            //   },
+            // });
           },
           stopStreaming() {
             this.subscription.unsubscribe();
