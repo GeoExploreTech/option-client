@@ -30,14 +30,17 @@ function initVueApp() {
               .replace("OTC", "otc"); // Convert "OTC" to lowercase "otc"
           },
           startStreaming() {
-            console.log("Here Now", this.formatSymbol(this.currentSym));
+            const symAsset = this.formatSymbol(this.currentSym);
+            console.log("Here Now", symAsset);
 
             // alert(`Start Stream clicked`);
-            // const candleDataObservable = createWebSocketObservable(
-            //   this.formatSymbol(this.currentSym),
-            //   60,
-            //   1
-            // );
+            const candleDataObservable = createWebSocketObservable(
+              symAsset,
+              60,
+              1
+            );
+            console.log(candleDataObservable);
+
             // this.subscription = candleDataObservable.subscribe({
             //   next: (data) => {
             //     console.log("Received candle data:", data);
