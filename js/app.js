@@ -37,6 +37,15 @@ function initVueApp() {
               console.log(error);
             }
           },
+          openListener() {
+            console.log("WebSocket connection opened.");
+          },
+          closeListener() {
+            console.log("WebSocket connection closed.");
+          },
+          errorListener(error) {
+            console.error(error);
+          },
           getCandleDataPerSecond(res) {
             const data = JSON.parse(res); // Parse incoming data
             return data;
@@ -55,21 +64,22 @@ function initVueApp() {
             this.socketHandle = new WebSocket(urlWs);
 
             // Add WebSocket event listeners
-            this.socketHandle.addEventListener("open", () => {
-              console.log("WebSocket connection opened.");
-            });
+            this.socketHandle.addEventListener("open", this.openListener);
             this.socketHandle.addEventListener("message", this.messageListener);
-            this.socketHandle.addEventListener("close", () => {
-              console.log("WebSocket connection Closed.");
-            });
-            this.socketHandle.addEventListener("error", (error) => {
-              console.log(error);
-            });
-
-            console.log(socket);
+            this.socketHandle.addEventListener("close", this.closeListener);
+            this.socketHandle.addEventListener("error", this.errorListener);
           },
           stopStreaming() {
-            this.subscription.unsubscribe();
+            this.socketHandle.removeEventListener("open", this.openListener);
+            this.socketHandle.removeEventListener(
+              "message",
+              this.messageListener
+            );
+            this.socketHandle.removeEventListener("close", this.closeListener);
+            this.socketHandle.removeEventListener("error", this.errorListener);
+            if (this.socketHandle.readyState === WebSocket.OPEN) {
+              this.socketHandle.close();
+            }
           },
           getCurrentAssest() {
             // Get the text content of the target element and assign it to currentSym
