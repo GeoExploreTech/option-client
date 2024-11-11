@@ -39,19 +39,19 @@ function initVueApp() {
               60,
               1
             );
-            console.log(candleDataObservable);
+            console.log(candleDataObservable());
 
-            this.subscription = candleDataObservable.subscribe({
-              next: (data) => {
-                console.log("Received candle data:", data);
-              },
-              error: (error) => {
-                console.error("WebSocket error:", error);
-              },
-              complete: () => {
-                console.log("WebSocket stream completed.");
-              },
-            });
+            // this.subscription = candleDataObservable.subscribe({
+            //   next: (data) => {
+            //     console.log("Received candle data:", data);
+            //   },
+            //   error: (error) => {
+            //     console.error("WebSocket error:", error);
+            //   },
+            //   complete: () => {
+            //     console.log("WebSocket stream completed.");
+            //   },
+            // });
           },
           stopStreaming() {
             this.subscription.unsubscribe();
