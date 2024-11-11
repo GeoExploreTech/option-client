@@ -19,7 +19,7 @@ function initVueApp() {
         el: "#option-bot-app",
         data: {
           currentSym: "Current Asset",
-          subscription: "",
+          candlesData: [],
           socketHandle: "",
           isStreaming: false,
         },
@@ -56,6 +56,30 @@ function initVueApp() {
               .replace("/", "") // Remove the slash
               .replace(" ", "_") // Replace space with underscore
               .replace("OTC", "otc"); // Convert "OTC" to lowercase "otc"
+          },
+          getHistoricCandleData() {
+            const symAsset = this.formatSymbol(this.currentSym);
+            const apiUrl = `https://ws.geoviso.com/candles/${symAsset}/60/20`;
+            // Make the GET request using GM_xmlhttpRequest
+            GM_xmlhttpRequest({
+              method: "GET",
+              url: apiUrl,
+              onload: function (response) {
+                if (response.status === 200) {
+                  // Parse the JSON response
+                  const data = JSON.parse(response.responseText);
+                  console.log("API Data:", data); // Log the data to console
+                  alert(`Title: ${data.title}`); // Example action with data
+                } else {
+                  console.error(
+                    `Request failed with status ${response.status}`
+                  );
+                }
+              },
+              onerror: function (error) {
+                console.error("Request failed", error);
+              },
+            });
           },
           startStreaming() {
             const symAsset = this.formatSymbol(this.currentSym);
