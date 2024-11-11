@@ -7,7 +7,7 @@ const wsUrl = "wss://ws.geoviso.com/ws/candles/NZDUSD_otc/60/1";
 // Function to create an observable for WebSocket messages
 function createWebSocketObservable(assetSym, duration, count) {
   const url = `wss://ws.geoviso.com/ws/candles/${assetSym}/${duration}/${count}`;
-  console.log(url);
+  console.log("HERE I MINE:", url);
 
   return new Observable((observer) => {
     // Create WebSocket connection
