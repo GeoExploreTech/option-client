@@ -84,6 +84,7 @@ function initVueApp() {
                       lowerTail, // Bottom wick (lower tail)
                     };
                   });
+                  console.log(this.candlesData);
                 } else {
                   console.error(
                     `Request failed with status ${response.status}`
