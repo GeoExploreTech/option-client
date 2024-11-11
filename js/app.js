@@ -20,6 +20,7 @@ function initVueApp() {
         data: {
           currentSym: "Current Asset",
           subscription: "",
+          socketHandle: "",
         },
         methods: {
           buttonClick(name) {
@@ -51,17 +52,17 @@ function initVueApp() {
             console.log("Here Now", symAsset);
             const urlWs = `wss://ws.geoviso.com/ws/candles/${symAsset}/60/1`;
             // Create WebSocket connection
-            const socket = new WebSocket(urlWs);
+            this.socketHandle = new WebSocket(urlWs);
 
             // Add WebSocket event listeners
-            socket.addEventListener("open", () => {
+            this.socketHandle.addEventListener("open", () => {
               console.log("WebSocket connection opened.");
             });
-            socket.addEventListener("message", this.messageListener);
-            socket.addEventListener("close", () => {
+            this.socketHandle.addEventListener("message", this.messageListener);
+            this.socketHandle.addEventListener("close", () => {
               console.log("WebSocket connection Closed.");
             });
-            socket.addEventListener("error", (error) => {
+            this.socketHandle.addEventListener("error", (error) => {
               console.log(error);
             });
 
