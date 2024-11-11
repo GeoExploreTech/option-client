@@ -9,53 +9,53 @@ function createWebSocketObservable(assetSym, duration, count) {
   const url = `wss://ws.geoviso.com/ws/candles/${assetSym}/${duration}/${count}`;
   console.log("HERE I MINE:", url);
 
-  return new Observable((observer) => {
-    // Create WebSocket connection
-    const socket = new WebSocket(url);
+  // return new Observable((observer) => {
+  //   // Create WebSocket connection
+  //   const socket = new WebSocket(url);
 
-    // Emit messages to the observer
-    const messageListener = (event) => {
-      try {
-        const data = getCandleDataPerSecond(event.data);
-        observer.next(data); // Pass parsed data to the observer
-      } catch (error) {
-        observer.error(error); // Emit error if parsing fails
-      }
-    };
+  //   // Emit messages to the observer
+  //   const messageListener = (event) => {
+  //     try {
+  //       const data = getCandleDataPerSecond(event.data);
+  //       observer.next(data); // Pass parsed data to the observer
+  //     } catch (error) {
+  //       observer.error(error); // Emit error if parsing fails
+  //     }
+  //   };
 
-    // Handle WebSocket open event
-    const openListener = () => {
-      console.log("WebSocket connection opened.");
-    };
+  //   // Handle WebSocket open event
+  //   const openListener = () => {
+  //     console.log("WebSocket connection opened.");
+  //   };
 
-    // Handle WebSocket close event
-    const closeListener = () => {
-      console.log("WebSocket connection closed.");
-      observer.complete(); // Complete the observable if WebSocket closes
-    };
+  //   // Handle WebSocket close event
+  //   const closeListener = () => {
+  //     console.log("WebSocket connection closed.");
+  //     observer.complete(); // Complete the observable if WebSocket closes
+  //   };
 
-    // Handle WebSocket errors
-    const errorListener = (error) => {
-      observer.error(error);
-    };
+  //   // Handle WebSocket errors
+  //   const errorListener = (error) => {
+  //     observer.error(error);
+  //   };
 
-    // Add WebSocket event listeners
-    socket.addEventListener("open", openListener);
-    socket.addEventListener("message", messageListener);
-    socket.addEventListener("close", closeListener);
-    socket.addEventListener("error", errorListener);
+  //   // Add WebSocket event listeners
+  //   socket.addEventListener("open", openListener);
+  //   socket.addEventListener("message", messageListener);
+  //   socket.addEventListener("close", closeListener);
+  //   socket.addEventListener("error", errorListener);
 
-    // Cleanup function to close the WebSocket and remove listeners when unsubscribed
-    return () => {
-      socket.removeEventListener("open", openListener);
-      socket.removeEventListener("message", messageListener);
-      socket.removeEventListener("close", closeListener);
-      socket.removeEventListener("error", errorListener);
-      if (socket.readyState === WebSocket.OPEN) {
-        socket.close();
-      }
-    };
-  });
+  //   // Cleanup function to close the WebSocket and remove listeners when unsubscribed
+  //   return () => {
+  //     socket.removeEventListener("open", openListener);
+  //     socket.removeEventListener("message", messageListener);
+  //     socket.removeEventListener("close", closeListener);
+  //     socket.removeEventListener("error", errorListener);
+  //     if (socket.readyState === WebSocket.OPEN) {
+  //       socket.close();
+  //     }
+  //   };
+  // });
 }
 
 // Function to parse incoming data
