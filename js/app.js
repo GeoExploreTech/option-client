@@ -30,7 +30,9 @@ function initVueApp() {
               .replace("OTC", "otc"); // Convert "OTC" to lowercase "otc"
           },
           startStreaming() {
-            alert(`Start Stream clicked`, this.formatSymbol(this.currentSym));
+            console.log("Here Now", this.formatSymbol(this.currentSym));
+
+            alert(`Start Stream clicked`);
             // const candleDataObservable = createWebSocketObservable(
             //   this.formatSymbol(this.currentSym),
             //   60,
