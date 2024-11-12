@@ -87,9 +87,6 @@ function initVueApp() {
                     };
                   });
                   console.log(this.candlesData);
-                  const norData = await this.normalizeData(this.candlesData);
-                  const trainingData = await this.prepareTrainingData(norData);
-                  console.log("DDDDD = ", norData, trainingData);
                 } else {
                   console.error(
                     `Request failed with status ${response.status}`
@@ -153,22 +150,22 @@ function initVueApp() {
 
             console.log("DATA GOT =", this.candlesData);
 
-            const norData = await this.normalizeData(this.candlesData);
-            const trainingData = await this.prepareTrainingData(norData);
+            // const norData = await this.normalizeData(this.candlesData);
+            // const trainingData = await this.prepareTrainingData(norData);
 
-            console.log("norData", norData);
-            console.log("trainingData", trainingData);
+            // console.log("norData", norData);
+            // console.log("trainingData", trainingData);
 
-            // Train the network
-            net.train(trainingData, {
-              iterations: 2000,
-              learningRate: 0.01,
-              errorThresh: 0.005,
-              log: (error) => console.log(error),
-              logPeriod: 500,
-            });
+            // // Train the network
+            // net.train(trainingData, {
+            //   iterations: 2000,
+            //   learningRate: 0.01,
+            //   errorThresh: 0.005,
+            //   log: (error) => console.log(error),
+            //   logPeriod: 500,
+            // });
 
-            console.log("Prediction = ", net.run(trainingData[18]));
+            // console.log("Prediction = ", net.run(trainingData[18]));
           },
 
           startStreaming() {
