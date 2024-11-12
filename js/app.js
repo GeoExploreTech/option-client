@@ -156,14 +156,14 @@ function initVueApp() {
 
             // Train the network
             net.train(trainingData, {
-              iterations: 2000,
+              // iterations: 10000,
               learningRate: 0.01,
               errorThresh: 0.005,
               log: (error) => console.log(error),
               logPeriod: 500,
             });
 
-            // console.log("Prediction = ", net.run(trainingData[18]));
+            console.log("Prediction = ", net.run(trainingData[17].input));
           },
 
           startStreaming() {
