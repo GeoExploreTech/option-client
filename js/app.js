@@ -64,7 +64,7 @@ function initVueApp() {
             GM_xmlhttpRequest({
               method: "GET",
               url: apiUrl,
-              onload: async function (response) {
+              onload: async (response) => {
                 if (response.status === 200) {
                   // Parse the JSON response
                   const data = JSON.parse(response.responseText);
