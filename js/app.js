@@ -155,19 +155,17 @@ function initVueApp() {
 
             const trainingData = await this.prepareTrainingData(norData);
             console.log("DATA GOT3 =", trainingData);
-            // console.log("norData", norData);
-            // console.log("trainingData", trainingData);
 
-            // // Train the network
-            // net.train(trainingData, {
-            //   iterations: 2000,
-            //   learningRate: 0.01,
-            //   errorThresh: 0.005,
-            //   log: (error) => console.log(error),
-            //   logPeriod: 500,
-            // });
+            // Train the network
+            net.train(trainingData, {
+              iterations: 2000,
+              learningRate: 0.01,
+              errorThresh: 0.005,
+              log: (error) => console.log(error),
+              logPeriod: 500,
+            });
 
-            // console.log("Prediction = ", net.run(trainingData[18]));
+            console.log("Prediction = ", net.run(trainingData[18]));
           },
 
           startStreaming() {
