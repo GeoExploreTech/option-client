@@ -64,7 +64,7 @@ function initVueApp() {
             GM_xmlhttpRequest({
               method: "GET",
               url: apiUrl,
-              onload: function (response) {
+              onload: async function (response) {
                 if (response.status === 200) {
                   // Parse the JSON response
                   const data = JSON.parse(response.responseText);
@@ -87,6 +87,9 @@ function initVueApp() {
                     };
                   });
                   console.log(this.candlesData);
+                  const norData = await this.normalizeData(this.candlesData);
+                  const trainingData = await this.prepareTrainingData(norData);
+                  console.log("DDDDD = ", norData, trainingData);
                 } else {
                   console.error(
                     `Request failed with status ${response.status}`
