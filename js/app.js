@@ -143,9 +143,7 @@ function initVueApp() {
 
           async trainNetWork() {
             const net = new brain.recurrent.LSTMTimeStep({
-              inputSize: 7, // OHLC + body + upperTail + lowerTail
               hiddenLayers: [10, 10],
-              outputSize: 1, // Predict direction (up/down)
             });
 
             console.log("DATA GOT =", this.candlesData);
