@@ -163,7 +163,7 @@ function initVueApp() {
               logPeriod: 500,
             });
 
-            console.log("Prediction = ", net.run(trainingData[18]));
+            // console.log("Prediction = ", net.run(trainingData[18]));
           },
 
           startStreaming() {
