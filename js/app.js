@@ -99,43 +99,49 @@ function initVueApp() {
             });
           },
           normalizeData(data) {
-            const normalized = data.map((d) => ({
-              open: d.open / 10,
-              high: d.high / 10,
-              low: d.low / 10,
-              close: d.close / 10,
-              body: d.body / 10,
-              upperTail: d.upperTail / 10,
-              lowerTail: d.lowerTail / 10,
-            }));
-            return normalized;
+            return new Promise((resolve) => {
+              const normalized = data.map((d) => ({
+                open: d.open / 10,
+                high: d.high / 10,
+                low: d.low / 10,
+                close: d.close / 10,
+                body: d.body / 10,
+                upperTail: d.upperTail / 10,
+                lowerTail: d.lowerTail / 10,
+              }));
+              resolve(normalized);
+            });
           },
           // Prepare training data
           prepareTrainingData(normalizedData) {
-            return normalizedData
-              .map((d, i) => {
-                const nextCandle = normalizedData[i + 1];
-                if (!nextCandle) return null;
+            return new Promise((resolve) => {
+              const trainingData = normalizedData
+                .map((d, i) => {
+                  const nextCandle = normalizedData[i + 1];
+                  if (!nextCandle) return null;
 
-                // Direction is up (1) if the next close is higher than the current close, otherwise down (0)
-                const direction = nextCandle.close > d.close ? 1 : 0;
-                return {
-                  input: [
-                    d.open,
-                    d.high,
-                    d.low,
-                    d.close,
-                    d.body,
-                    d.upperTail,
-                    d.lowerTail,
-                  ],
-                  output: [direction],
-                };
-              })
-              .filter(Boolean); // Remove any null values
+                  // Determine the direction for the training output
+                  const direction = nextCandle.close > d.close ? 1 : 0;
+                  return {
+                    input: [
+                      d.open,
+                      d.high,
+                      d.low,
+                      d.close,
+                      d.body,
+                      d.upperTail,
+                      d.lowerTail,
+                    ],
+                    output: [direction],
+                  };
+                })
+                .filter(Boolean); // Filter out any `null` values
+
+              resolve(trainingData);
+            });
           },
 
-          trainNetWork() {
+          async trainNetWork() {
             const net = new brain.recurrent.LSTMTimeStep({
               inputSize: 7, // OHLC + body + upperTail + lowerTail
               hiddenLayers: [10, 10],
@@ -144,8 +150,8 @@ function initVueApp() {
 
             console.log("DATA GOT =", this.candlesData);
 
-            const norData = this.normalizeData(this.candlesData);
-            const trainingData = this.prepareTrainingData(norData);
+            const norData = await this.normalizeData(this.candlesData);
+            const trainingData = await this.prepareTrainingData(norData);
 
             console.log("norData", norData);
             console.log("trainingData", trainingData);
