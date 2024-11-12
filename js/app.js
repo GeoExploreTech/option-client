@@ -153,8 +153,8 @@ function initVueApp() {
             const norData = await this.normalizeData(this.candlesData);
             console.log("DATA GOT2 =", norData);
 
-            // const trainingData = await this.prepareTrainingData(norData);
-
+            const trainingData = await this.prepareTrainingData(norData);
+            console.log("DATA GOT3 =", trainingData);
             // console.log("norData", norData);
             // console.log("trainingData", trainingData);
 
