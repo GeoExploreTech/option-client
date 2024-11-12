@@ -143,7 +143,7 @@ function initVueApp() {
 
           async trainNetWork() {
             const net = new brain.recurrent.LSTMTimeStep({
-              hiddenLayers: [10, 10],
+              hiddenLayers: [7],
             });
 
             console.log("DATA GOT =", this.candlesData);
