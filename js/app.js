@@ -143,7 +143,7 @@ function initVueApp() {
 
           async trainNetWork() {
             const net = new brain.recurrent.LSTMTimeStep({
-              hiddenLayers: [7],
+              hiddenLayers: [7, 7],
             });
 
             console.log("DATA GOT =", this.candlesData);
@@ -164,6 +164,7 @@ function initVueApp() {
             });
 
             console.log("Prediction = ", net.run(trainingData[17].input));
+            console.log("Actual = ", trainingData[17].output);
           },
 
           startStreaming() {
