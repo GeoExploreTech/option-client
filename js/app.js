@@ -141,27 +141,35 @@ function initVueApp() {
             });
           },
 
-          async trainNetWork() {
-            const net = new brain.recurrent.LSTMTimeStep({
-              hiddenLayers: [7, 7],
+          netModelRun(trainingData) {
+            console.log("RUNNING MODEL !!!");
+
+            return new Promise((resolve) => {
+              const net = new brain.recurrent.LSTMTimeStep({
+                hiddenLayers: [7, 7],
+              });
+
+              // Train the network
+              net.train(trainingData, {
+                // iterations: 10000,
+                learningRate: 0.01,
+                errorThresh: 0.005,
+                log: (error) => console.log(error),
+                logPeriod: 500,
+              });
+
+              resolve(net);
             });
+          },
 
-            console.log("DATA GOT =", this.candlesData);
-
+          async trainNetWork() {
             const norData = await this.normalizeData(this.candlesData);
             console.log("DATA GOT2 =", norData);
 
             const trainingData = await this.prepareTrainingData(norData);
             console.log("DATA GOT3 =", trainingData);
 
-            // Train the network
-            net.train(trainingData, {
-              // iterations: 10000,
-              learningRate: 0.01,
-              errorThresh: 0.005,
-              log: (error) => console.log(error),
-              logPeriod: 500,
-            });
+            const net = await this.netModelRun(trainingData);
 
             console.log("Prediction = ", net.run(trainingData[17].input));
             console.log("Actual = ", trainingData[17].output);
