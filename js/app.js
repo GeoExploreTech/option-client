@@ -105,9 +105,9 @@ function initVueApp() {
                 high: d.high / 100,
                 low: d.low / 100,
                 close: d.close / 100,
-                body: d.body / 100,
-                upperTail: d.upperTail / 100,
-                lowerTail: d.lowerTail / 100,
+                // body: d.body / 100,
+                // upperTail: d.upperTail / 100,
+                // lowerTail: d.lowerTail / 100,
               }));
               resolve(normalized);
             });
@@ -128,9 +128,9 @@ function initVueApp() {
                       d.high,
                       d.low,
                       d.close,
-                      d.body,
-                      d.upperTail,
-                      d.lowerTail,
+                      // d.body,
+                      // d.upperTail,
+                      // d.lowerTail,
                     ],
                     output: [direction],
                   };
