@@ -146,7 +146,7 @@ function initVueApp() {
 
             return new Promise((resolve) => {
               const net = new brain.recurrent.LSTMTimeStep({
-                hiddenLayers: [7],
+                hiddenLayers: [10, 10],
               });
 
               // Train the network
