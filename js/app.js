@@ -151,9 +151,9 @@ function initVueApp() {
 
               // Train the network
               net.train(trainingData, {
-                // iterations: 10000,
+                iterations: 2000,
                 learningRate: 0.01,
-                errorThresh: 0.005,
+                errorThresh: 0.001,
                 log: (error) => console.log(error),
                 logPeriod: 500,
               });
