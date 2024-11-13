@@ -101,13 +101,13 @@ function initVueApp() {
           normalizeData(data) {
             return new Promise((resolve) => {
               const normalized = data.map((d) => ({
-                open: d.open / 10,
-                high: d.high / 10,
-                low: d.low / 10,
-                close: d.close / 10,
-                body: d.body / 10,
-                upperTail: d.upperTail / 10,
-                lowerTail: d.lowerTail / 10,
+                open: d.open / 100,
+                high: d.high / 100,
+                low: d.low / 100,
+                close: d.close / 100,
+                body: d.body / 100,
+                upperTail: d.upperTail / 100,
+                lowerTail: d.lowerTail / 100,
               }));
               resolve(normalized);
             });
